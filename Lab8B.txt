@@ -1,0 +1,45 @@
+--1
+select p.PName, p.BarCode, s.SaleID, s.Quantity
+    from SaleItems s right outer join Products p
+    on p.BarCode = s.BarCode;
+
+--2
+Create view AllProductsSales as 
+    select p.PName, p.BarCode, s.SaleID, s.Quantity
+    from SaleItems s right outer join Products p
+    on p.BarCode = s.BarCode;
+    
+--3
+select *
+from AllProductsSales
+order by barcode, saleid;
+
+--4a
+insert into Products values(1234567891,'chips',2,20);
+
+--4b
+select *
+from AllProductsSales
+order by barcode, saleid;
+
+the results did change because the view is not a saved table it is an executed query each time and it retrieved the newly
+updated products table including the chips item.
+
+
+--5
+Create view ProductProfit as 
+    select sum(p.price * 0.1 * s.quantity) "total_profit", p.barcode, p.pname  
+    from products p left outer join saleitems s
+    on p.barcode = s.barcode
+    group by  p.pname, p.barcode
+    order by p.barcode;                                                                                       
+    
+drop view ProductProfit;
+
+--6
+
+select sum(total_profit), pname
+from ProductProfit
+group by pname;
+
+    
