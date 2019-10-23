@@ -1,3 +1,5 @@
+
+
 --1
 select p.PName, p.BarCode, s.SaleID, s.Quantity
     from SaleItems s right outer join Products p
@@ -36,10 +38,18 @@ Create view ProductProfit as
     
 drop view ProductProfit;
 
+
+
 --6
 
-select sum(total_profit), pname
-from ProductProfit
-group by pname;
+select *
+from Productprofit
+order by "total_profit" desc;
 
-    
+--7
+
+update Productprofit
+set "total_profit" = 10000
+where barcode = 1111111111;
+
+this query does not work because the 
